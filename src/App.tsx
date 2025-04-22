@@ -1,41 +1,30 @@
-import { useState } from "react";
-
-import Card, { CardBody } from "./components/Card";
-import List from "./components/List";
-import Button from "./components/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-const handleSelect = (item: string) => {
-  console.log("handles", item);
-};
+import NavBar from "./components/NavBar";
+import CustomRow from "./components/CustomRow";
+import CustomCol from "./components/CustomCol";
 
 function App() {
-  const defaulList = ["GOKU", "VEGETA", "GOHAN", "PICCOLO", "KRILIN"];
-  const [list, setList] = useState<string[]>(defaulList);
-
-  const handleAdd = () => {
-    setList([...list, "NUEVO"]);
-  };
-
-  const handleEraser = () => {
-    setList(list.slice(0, list.length - 1));
-  };
-
   return (
-    <Card>
-      <CardBody text="el texto" title=" titulo de prueba" />
-      {list.length ? (
-        <List data={list} onSelect={handleSelect} />
-      ) : (
-        "nada que mostrar"
-      )}
+    <NavBar className="navbar navbar-dark bg-primary">
+      <CustomRow>
+        <CustomCol size={1}>
+          {
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+              alt="Logo"
+              width="30"
+              height="30"
+            />
+          }
+        </CustomCol>
 
-      <Button onClick={handleAdd}>AGREGAR</Button>
-
-      <Button onClick={handleEraser} className="btn btn-danger">
-        ELIMINAR
-      </Button>
-    </Card>
+        {/* <CustomCol size={11}>
+          <CustomTitle style={{ color: "white" }} label="h5">
+            FC PROYECT
+          </CustomTitle>
+        </CustomCol> */}
+      </CustomRow>
+    </NavBar>
   );
 }
 
