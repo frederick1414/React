@@ -1,0 +1,20 @@
+export const REPORT_SELLER_GOALS =
+  'https://app.powerbi.com/view?r=eyJrIjoiNGRmZTM5NTMtYWFmYS00ZTUwLTk2YmYtNjIzZDk4NGZiMGU4IiwidCI6IjA2ZWVmNmRjLWMyZmEtNGI5NC05MDliLWI2NzgwMTkxNjBhMyIsImMiOjJ9'
+
+export const REPORT_CXC_GOALS =
+  'https://app.powerbi.com/view?r=eyJrIjoiOTI0OGJkYjYtODkxNy00NzJjLTlhYjktZTQ0ZTc1NmJlNDRkIiwidCI6IjA2ZWVmNmRjLWMyZmEtNGI5NC05MDliLWI2NzgwMTkxNjBhMyIsImMiOjJ9'
+
+export const REPORT_PONDERADA_COOPEDAC =
+  'https://app.powerbi.com/view?r=eyJrIjoiM2UzOGM2YjYtMTRkZi00NzQzLWFmM2UtZWQ4YTFiMjFiYjM0IiwidCI6IjA2ZWVmNmRjLWMyZmEtNGI5NC05MDliLWI2NzgwMTkxNjBhMyIsImMiOjJ9'
+
+export const REPORT_ATENCION_CLIENTE =
+  'https://app.powerbi.com/view?r=eyJrIjoiZjYwZGFlNDQtNzFiZi00NGM4LWExZDktZGM2NzI1OTBlNmQ4IiwidCI6IjA2ZWVmNmRjLWMyZmEtNGI5NC05MDliLWI2NzgwMTkxNjBhMyIsImMiOjJ9'
+
+export const REPORT_COMPARATIVO_VENTAS =
+  'https://app.powerbi.com/view?r=eyJrIjoiMjUxYjY5OWEtYzJkMy00MzgzLWFjZDItYTMzZGMwM2EzNDc5IiwidCI6IjA2ZWVmNmRjLWMyZmEtNGI5NC05MDliLWI2NzgwMTkxNjBhMyIsImMiOjJ9'
+
+export const REPORT_SEGURO_VIDA =
+  'https://app.powerbi.com/view?r=eyJrIjoiMzM4MmFmYmMtNGQ5NS00ZGE1LTg3MTgtYTg1M2FiM2VjOTNjIiwidCI6IjA2ZWVmNmRjLWMyZmEtNGI5NC05MDliLWI2NzgwMTkxNjBhMyIsImMiOjJ9'
+
+export const REPORT_EJECUCIONES =
+  'https://app.powerbi.com/view?r=eyJrIjoiYzM0ZDE0NzUtMGEwYy00ZDZkLTlmMDEtYjFhZWMyMzAyMGQ3IiwidCI6IjA2ZWVmNmRjLWMyZmEtNGI5NC05MDliLWI2NzgwMTkxNjBhMyIsImMiOjJ9'
