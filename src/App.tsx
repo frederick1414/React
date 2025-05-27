@@ -3,31 +3,15 @@ import "./index.css";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UserOutlined,
   TeamOutlined,
   PieChartOutlined,
-  DownOutlined,
-  SettingOutlined,
-  LogoutOutlined,
   DashboardOutlined,
-  NotificationOutlined,
   ShoppingOutlined,
-  DollarOutlined,
   FileTextOutlined,
   EditOutlined,
 } from "@ant-design/icons";
-import {
-  Button,
-  Layout,
-  Menu,
-  Dropdown,
-  Space,
-  Avatar,
-  Badge,
-  Divider,
-} from "antd";
-import type { MenuProps } from "antd";
-import styled from "styled-components";
+import { Button, Layout, Menu } from "antd";
+import CustomTable from "./components/antDesing/CustomTable";
 
 const { Header, Sider, Content } = Layout;
 
@@ -46,105 +30,83 @@ const colorPalette = {
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
 
-  // Menú desplegable mejorado
-  const profileMenu: MenuProps["items"] = [
+  const columns = [
     {
-      key: "header",
-      label: (
-        <div
-          style={{
-            padding: "12px 16px",
-            display: "flex",
-            alignItems: "center",
-            background: `linear-gradient(90deg, ${colorPalette.primary}20, ${colorPalette.secondary}20)`,
-          }}
-        >
-          <Badge dot color={colorPalette.notification}>
-            <Avatar
-              size="large"
-              style={{
-                backgroundColor: colorPalette.primary,
-                marginRight: 12,
-              }}
-              icon={<UserOutlined />}
-            />
-          </Badge>
-          <div>
-            <div
-              style={{
-                fontWeight: 600,
-                color: colorPalette.primary,
-                fontSize: 15,
-              }}
-            >
-              Carlos Moto
-            </div>
-            <div
-              style={{
-                color: colorPalette.textDark,
-                fontSize: 12,
-                opacity: 0.8,
-              }}
-            >
-              Gerente de Ventas
-            </div>
-          </div>
-        </div>
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Cliente",
+      dataIndex: "cliente",
+      key: "cliente",
+    },
+    {
+      title: "Moto",
+      dataIndex: "moto",
+      key: "moto",
+    },
+    {
+      title: "Precio",
+      dataIndex: "precio",
+      key: "precio",
+      render: (precio: number) => `$${precio.toLocaleString()}`,
+    },
+    {
+      title: "Fecha",
+      dataIndex: "fecha",
+      key: "fecha",
+    },
+    {
+      title: "Estado",
+      dataIndex: "estado",
+      key: "estado",
+      render: (estado: string) => (
+        <span style={{ color: estado === "Entregado" ? "#27ae60" : "#e67e22" }}>
+          {estado}
+        </span>
       ),
-      disabled: true,
-      style: { cursor: "default" },
-    },
-    {
-      type: "divider",
-    },
-    {
-      key: "notifications",
-      icon: <NotificationOutlined style={{ color: colorPalette.accent }} />,
-      label: "Notificaciones",
-      style: { fontWeight: 500 },
-    },
-    {
-      key: "settings",
-      icon: <SettingOutlined style={{ color: colorPalette.primary }} />,
-      label: "Configuración",
-      children: [
-        {
-          key: "settings:1",
-          icon: <ShoppingOutlined />,
-          label: "Config. Ventas",
-          style: { paddingLeft: 24 },
-        },
-        {
-          key: "settings:2",
-          icon: <DollarOutlined />,
-          label: "Métodos de Pago",
-          style: { paddingLeft: 24 },
-        },
-      ],
-    },
-    {
-      type: "divider",
-    },
-    {
-      key: "logout",
-      icon: <LogoutOutlined style={{ color: colorPalette.notification }} />,
-      label: "Cerrar sesión",
-      danger: true,
-      style: { fontWeight: 500 },
     },
   ];
 
-  const HoverableSpace = styled(Space)`
-    cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 8px;
-    transition: all 0.3s;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.025);
-    }
-  `;
-
+  const data = [
+    {
+      key: 1,
+      id: 1,
+      cliente: "Juan Pérez",
+      moto: "Honda CB190R",
+      precio: 3200,
+      fecha: "2025-05-20",
+      estado: "Entregado",
+    },
+    {
+      key: 2,
+      id: 2,
+      cliente: "Ana López",
+      moto: "Yamaha FZ25",
+      precio: 4100,
+      fecha: "2025-05-21",
+      estado: "Pendiente",
+    },
+    {
+      key: 3,
+      id: 3,
+      cliente: "Carlos Ruiz",
+      moto: "Suzuki Gixxer",
+      precio: 2950,
+      fecha: "2025-05-22",
+      estado: "Entregado",
+    },
+    {
+      key: 4,
+      id: 4,
+      cliente: "María Torres",
+      moto: "Bajaj Pulsar NS200",
+      precio: 2800,
+      fecha: "2025-05-23",
+      estado: "Pendiente",
+    },
+  ];
   return (
     <div
       style={{
@@ -163,14 +125,12 @@ const App: React.FC = () => {
           collapsedWidth={80}
           width={250}
           style={{
-            height: "100vh",
             position: "fixed",
             left: 0,
             top: 0,
             bottom: 0,
             zIndex: 10,
-            background: `linear-gradient(180deg, ${colorPalette.primary} 0%, ${colorPalette.secondary} 100%)`,
-            boxShadow: "4px 0 10px rgba(0,0,0,0.1)",
+            background: `#FFFFFF`, /// color menu,
           }}
         >
           <div
@@ -190,125 +150,76 @@ const App: React.FC = () => {
                 style={{ fontSize: 24, color: colorPalette.highlight }}
               />
             ) : (
-              <span style={{ color: colorPalette.highlight }}>
-                MOTO<span style={{ color: colorPalette.textLight }}>SHOP</span>
-              </span>
+              <span style={{ color: colorPalette.textDark }}>PROYECTO X</span>
             )}
           </div>
 
           <Menu
-            theme="dark"
+            theme="light"
             mode="inline"
             defaultSelectedKeys={["1"]}
             defaultOpenKeys={["sub1"]}
-            style={{
-              height: "calc(100% - 64px)",
-              background: "transparent",
-              borderRight: "none",
-              padding: "8px 0",
-            }}
             items={[
               {
                 key: "1",
+                icon: <DashboardOutlined />,
+                label: "Dashboard",
+              },
+              {
+                key: "2",
                 icon: (
-                  <DashboardOutlined
-                    style={{ fontSize: 18, color: colorPalette.highlight }}
-                  />
+                  <PieChartOutlined style={{ color: colorPalette.accent }} />
                 ),
-                label: (
-                  <span style={{ color: colorPalette.textLight }}>
-                    Dashboard
-                  </span>
-                ),
+                label: "Estadísticas",
               },
               {
                 key: "sub1",
                 icon: (
-                  <ShoppingOutlined
-                    style={{ fontSize: 18, color: colorPalette.accent }}
-                  />
+                  <TeamOutlined style={{ color: colorPalette.secondary }} />
                 ),
-                label: (
-                  <span style={{ color: colorPalette.textLight }}>Ventas</span>
-                ),
+                label: "Clientes",
                 children: [
                   {
-                    key: "2",
-                    label: (
-                      <span style={{ color: colorPalette.textLight }}>
-                        Nuevas Ventas
-                      </span>
-                    ),
+                    key: "3",
+                    label: "Lista de Clientes",
                   },
                   {
-                    key: "3",
-                    label: (
-                      <span style={{ color: colorPalette.textLight }}>
-                        Historial
-                      </span>
-                    ),
+                    key: "4",
+                    label: "Agregar Cliente",
                   },
                 ],
               },
               {
                 key: "sub2",
                 icon: (
-                  <EditOutlined
-                    style={{ fontSize: 18, color: colorPalette.accent }}
-                  />
+                  <ShoppingOutlined style={{ color: colorPalette.primary }} />
                 ),
-                label: (
-                  <span style={{ color: colorPalette.textLight }}>
-                    Inventario
-                  </span>
-                ),
+                label: "Ventas",
                 children: [
                   {
-                    key: "4",
-                    label: (
-                      <span style={{ color: colorPalette.textLight }}>
-                        Motocicletas
-                      </span>
-                    ),
+                    key: "5",
+                    label: "Lista de Ventas",
                   },
                   {
-                    key: "5",
-                    label: (
-                      <span style={{ color: colorPalette.textLight }}>
-                        Accesorios
-                      </span>
-                    ),
+                    key: "6",
+                    label: "Nueva Venta",
                   },
                 ],
               },
               {
                 key: "sub3",
                 icon: (
-                  <FileTextOutlined
-                    style={{ fontSize: 18, color: colorPalette.accent }}
-                  />
+                  <FileTextOutlined style={{ color: colorPalette.accent }} />
                 ),
-                label: (
-                  <span style={{ color: colorPalette.textLight }}>
-                    Reportes
-                  </span>
-                ),
+                label: "Reportes",
                 children: [
                   {
-                    key: "6",
-                    label: (
-                      <span style={{ color: colorPalette.textLight }}>
-                        Ventas Mensuales
-                      </span>
-                    ),
+                    key: "7",
+                    label: "Reporte de Ventas",
                   },
                   {
-                    key: "7",
-                    label: (
-                      <span style={{ color: colorPalette.textLight }}>
-                        Financieros
-                      </span>
-                    ),
+                    key: "8",
+                    label: "Reporte de Clientes",
                   },
                 ],
               },
@@ -316,22 +227,17 @@ const App: React.FC = () => {
           />
         </Sider>
 
-        {/* Layout principal */}
         <Layout
           style={{
             marginLeft: collapsed ? 80 : 250,
             height: "100vh",
             width: "100%",
-            transition: "margin-left 0.3s cubic-bezier(0.2, 0, 0, 1)",
-            background: colorPalette.background,
           }}
         >
-          {/* Header con efecto de vidrio */}
           <Header
             style={{
               padding: "0 24px",
               margin: 0,
-              background: `rgba(255, 255, 255, 0.9)`,
               backdropFilter: "blur(8px)",
               height: 64,
               display: "flex",
@@ -342,9 +248,6 @@ const App: React.FC = () => {
               left: collapsed ? 80 : 250,
               right: 0,
               zIndex: 9,
-              transition: "left 0.3s cubic-bezier(0.2, 0, 0, 1)",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-              borderBottom: `1px solid rgba(0,0,0,0.05)`,
             }}
           >
             <Button
@@ -355,66 +258,11 @@ const App: React.FC = () => {
                 fontSize: "18px",
                 width: 48,
                 height: 48,
-                color: colorPalette.primary,
+                color: colorPalette.textLight,
               }}
             />
-
-            <Dropdown
-              menu={{ items: profileMenu }}
-              dropdownRender={(menu) => (
-                <div
-                  style={{
-                    background: "#fff",
-                    borderRadius: 8,
-                    boxShadow:
-                      "0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)",
-                    minWidth: 240,
-                  }}
-                >
-                  {React.cloneElement(menu as React.ReactElement, {
-                    style: { boxShadow: "none" },
-                  })}
-                </div>
-              )}
-              trigger={["click"]}
-              placement="bottomRight"
-            >
-              <HoverableSpace>
-                <Badge dot color={colorPalette.notification}>
-                  <Avatar
-                    style={{
-                      backgroundColor: colorPalette.primary,
-                      verticalAlign: "middle",
-                    }}
-                    size="default"
-                    icon={<UserOutlined />}
-                  />
-                </Badge>
-                {!collapsed && (
-                  <>
-                    <span
-                      style={{
-                        color: colorPalette.textDark,
-                        fontWeight: 500,
-                        fontSize: 15,
-                      }}
-                    >
-                      Carlos Moto
-                    </span>
-                    <DownOutlined
-                      style={{
-                        color: colorPalette.primary,
-                        fontSize: 12,
-                        transition: "transform 0.2s",
-                      }}
-                    />
-                  </>
-                )}
-              </HoverableSpace>
-            </Dropdown>
           </Header>
 
-          {/* Contenido principal */}
           <Content
             style={{
               padding: 24,
@@ -425,112 +273,7 @@ const App: React.FC = () => {
               background: colorPalette.background,
             }}
           >
-            <div
-              style={{
-                background: colorPalette.textLight,
-                borderRadius: 12,
-                padding: 24,
-                boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-                border: `1px solid rgba(0,0,0,0.05)`,
-              }}
-            >
-              <h1
-                style={{
-                  color: colorPalette.primary,
-                  marginBottom: 24,
-                  fontWeight: 600,
-                }}
-              >
-                Panel de Ventas de Motocicletas
-              </h1>
-
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-                  gap: 16,
-                  marginBottom: 24,
-                }}
-              >
-                {[
-                  { title: "Ventas Hoy", value: 8, icon: <ShoppingOutlined /> },
-                  {
-                    title: "Meta Mensual",
-                    value: "75%",
-                    icon: <DollarOutlined />,
-                  },
-                  {
-                    title: "Nuevos Clientes",
-                    value: 12,
-                    icon: <UserOutlined />,
-                  },
-                  {
-                    title: "Inventario",
-                    value: 24,
-                    icon: <EditOutlined />,
-                  },
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      background:
-                        index % 2 === 0
-                          ? `linear-gradient(135deg, ${colorPalette.primary} 0%, ${colorPalette.secondary} 100%)`
-                          : `linear-gradient(135deg, ${colorPalette.secondary} 0%, ${colorPalette.primary} 100%)`,
-                      color: colorPalette.textLight,
-                      padding: 16,
-                      borderRadius: 8,
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      height: 120,
-                      boxShadow: `0 4px 8px ${colorPalette.primary}20`,
-                    }}
-                  >
-                    {React.cloneElement(item.icon, {
-                      style: { fontSize: 24, marginBottom: 8 },
-                    })}
-                    <span style={{ fontSize: 16, fontWeight: 500 }}>
-                      {item.title}
-                    </span>
-                    <span style={{ fontSize: 24, fontWeight: 600 }}>
-                      {item.value}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <div
-                style={{
-                  background: `linear-gradient(to right, ${colorPalette.background}, ${colorPalette.textLight})`,
-                  padding: 16,
-                  borderRadius: 8,
-                  marginBottom: 24,
-                  border: `1px solid ${colorPalette.primary}20`,
-                }}
-              >
-                <h3
-                  style={{
-                    color: colorPalette.secondary,
-                    marginBottom: 16,
-                  }}
-                >
-                  Resumen de Ventas
-                </h3>
-                <p
-                  style={{
-                    color: colorPalette.textDark,
-                    lineHeight: 1.6,
-                  }}
-                >
-                  El sistema de gestión para ventas de motocicletas proporciona
-                  herramientas completas para administrar inventario, clientes y
-                  transacciones. Con este panel podrás monitorear el rendimiento
-                  de tu concesionario en tiempo real.
-                </p>
-              </div>
-            </div>
+            <CustomTable columns={columns} dataSource={data} />
           </Content>
         </Layout>
       </Layout>
